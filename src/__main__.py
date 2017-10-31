@@ -1,15 +1,17 @@
+
+
 import sys
 from shutil import copy2
 from PyQt5 import QtWidgets, QtCore
-<<<<<<< HEAD
+#<<<<<<< HEAD
 from hapi import *              #edited src.
 from util import *               #edited src.
 from main_window import *        #edited src.
-=======
+#=======
 from hapi import *
 from util import *
 from main_window import *
->>>>>>> origin/master
+#>>>>>>> origin/master
 from threading import Thread
 from multiprocessing import Process, Value
 

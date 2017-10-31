@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+#<<<<<<< HEAD
 from util import * #edited src.
 from window import Window #edited src.
 from PyQt5 import QtCore, QtWidgets, QtGui
@@ -7,7 +7,7 @@ from data_handle import * #edited src.
 from hapi import * #edited src.
 from absorption_coefficient_window import * #edited src.
 from isotopologue import * #edited src.
-=======
+#=======
 from util import *
 from window import Window
 from PyQt5 import QtCore, QtWidgets, QtGui
@@ -16,7 +16,16 @@ from data_handle import *
 from hapi import *
 from absorption_coefficient_window import *
 from isotopologue import *
->>>>>>> origin/master
+#>>>>>>> origin/master
+import sys
+from PyQt5.QtWidgets import (QWidget, QToolTip,
+    QPushButton, QApplication)
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QWhatsThis
+from PyQt5.QtCore import (QPoint, QEvent)
+#from PyQt5.QtEvent import QHelpEvent
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QWidget, QApplication, QGridLayout, QLabel
 
 class MainWindow(Window):
     def __init__(self):
@@ -103,8 +112,18 @@ class MainWindowGui(QtWidgets.QMainWindow):
         uic.loadUi('layouts/main_window.ui', self)
 
         self.init_molecule_list()
-
         self.populate_parameter_lists()
+
+        # TOOLTIPS
+        QToolTip.setFont(QFont('SansSerif', 10))
+        self.param_group_list.setToolTip('Specifies "non-standard" parameter to query.')
+        self.param_list.setToolTip('Specifies parameters to query.')
+        self.iso_list.setToolTip('Select the molecule isotopologues you wish to query.')
+        self.molecule_id.setToolTip('Type in, or use the drop-down menu to select your molecule.')
+        self.data_name.setToolTip('Specify local name for fetched data')
+
+        self.wn_min.setToolTip('Specify lower bound wave number to query, must be positive number.\n(default: absolute min for given molecule).')
+        self.wn_max.setToolTip('Specify upper bound wave number to query, must be greater than min wave number.\n(default: absolute max for given molecule)')
 
         # Connect menu actions to handling functions
         self.action_absorption_coefficient.triggered.connect(
@@ -137,6 +156,10 @@ class MainWindowGui(QtWidgets.QMainWindow):
         self.fetch_button.clicked.connect(
             lambda: self.__handle_fetch_clicked())
 
+
+
+        self.fetch_button.setToolTip('Prompts parameter validation, fetches from HITRAN.')
+        self.clear_console.setToolTip('Clear the console of all current output.')
         # Set the clear_console button onckick method to the one defined in the class
         self.clear_console.clicked.connect(
             lambda: self.__handle_clear_console_clicked())
@@ -196,6 +219,7 @@ class MainWindowGui(QtWidgets.QMainWindow):
         self.molecule_id.setCompleter(None)
         self.molecule_id.setEditable(True)
         self.molecule_id.setInsertPolicy(QtWidgets.QComboBox.NoInsert)
+
 
     ###########################################################################
     # Getter methods
