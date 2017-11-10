@@ -1,4 +1,4 @@
-from aenum import Enum
+from enum import Enum
 from hapi import *
 from threading import Thread
 from hapiest_util import *
